@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Synchronization</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../virtual-threads';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../atomic-counters';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="synchronization">
+      <h2><a href="../">Java by Example</a>: Synchronization</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java provides several mechanisms for synchronizing
+access to shared data across threads.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">concurrent</span><span class="p">.</span><span class="nx">locks</span><span class="p">.</span><span class="nx">ReentrantLock</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Synchronization</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">counter</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">final</span><span class="p"> </span><span class="nb">Object</span><span class="p"> </span><span class="nx">lock</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">Object</span><span class="p">();</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>The <code>synchronized</code> keyword is the simplest
+way to achieve mutual exclusion.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">static</span><span class="p"> </span><span class="k">synchronized</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">incrementSync</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nx">counter</span><span class="p">++;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>You can also synchronize on specific objects
+or use <code>ReentrantLock</code> for more control.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">static</span><span class="p"> </span><span class="k">final</span><span class="p"> </span><span class="nx">ReentrantLock</span><span class="p"> </span><span class="nx">rLock</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ReentrantLock</span><span class="p">();</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">incrementWithLock</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nx">rLock</span><span class="p">.</span><span class="nx">lock</span><span class="p">();</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">counter</span><span class="p">++;</span><span class="p">
+        </span><span class="p">}</span><span class="p"> </span><span class="k">finally</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">rLock</span><span class="p">.</span><span class="nx">unlock</span><span class="p">();</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Example usage with multiple threads.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nx">counter</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">threads</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">Thread</span><span class="p">[</span><span class="mi">1000</span><span class="p">];</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="nx">threads</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">threads</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">Thread</span><span class="p">(()</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="p">{</span><span class="p">
+                </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">j</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">j</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">1000</span><span class="p">;</span><span class="p"> </span><span class="nx">j</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+                    </span><span class="nx">incrementSync</span><span class="p">();</span><span class="p">
+                </span><span class="p">}</span><span class="p">
+            </span><span class="p">});</span><span class="p">
+            </span><span class="nx">threads</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">start</span><span class="p">();</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">t</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="nx">threads</span><span class="p">)</span><span class="p"> </span><span class="nx">t</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;count: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">counter</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>The count will always be exactly 1,000,000
+thanks to synchronization.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Synchronization.java</span>
+<span class="go">count: 1000000</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../atomic-counters" rel="next">Atomic Counters</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

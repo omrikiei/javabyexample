@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Atomic Counters</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../synchronization';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../sorting';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="atomic-counters">
+      <h2><a href="../">Java by Example</a>: Atomic Counters</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>For managing simple shared state, Java provides
+<code>java.util.concurrent.atomic</code> package with
+lock-free thread-safe operations.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">concurrent</span><span class="p">.</span><span class="nx">atomic</span><span class="p">.</span><span class="nx">AtomicLong</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">AtomicCounters</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">ops</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">AtomicLong</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>We&rsquo;ll start 50 threads that each increment
+the counter 1000 times.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">threads</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">Thread</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="nx">threads</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">threads</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">Thread</span><span class="p">(()</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="p">{</span><span class="p">
+                </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">j</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">j</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">1000</span><span class="p">;</span><span class="p"> </span><span class="nx">j</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+                    </span><span class="nx">ops</span><span class="p">.</span><span class="nx">incrementAndGet</span><span class="p">();</span><span class="p">
+                </span><span class="p">}</span><span class="p">
+            </span><span class="p">});</span><span class="p">
+            </span><span class="nx">threads</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">start</span><span class="p">();</span><span class="p">
+        </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Wait for all threads and read the final value.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">t</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="nx">threads</span><span class="p">)</span><span class="p"> </span><span class="nx">t</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span><span class="p">
+
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;ops: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">ops</span><span class="p">.</span><span class="nx">get</span><span class="p">());</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>We expect exactly 50,000 operations. Atomics are
+often preferred over locks for simple counters.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java AtomicCounters.java</span>
+<span class="go">ops: 50000</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../sorting" rel="next">Sorting</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

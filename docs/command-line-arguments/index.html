@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Command-Line Arguments</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../http-server';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../environment-variables';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="command-line-arguments">
+      <h2><a href="../">Java by Example</a>: Command-Line Arguments</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><a href="https://docs.oracle.com/javase/tutorial/essential/environment/cmdLineArgs.html">Command-line arguments</a>
+are available in the <code>String[] args</code>
+parameter of the <code>main</code> method.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">CommandLineArgs</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// args contains all arguments (no program name)</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;args: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Arrays</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">args</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;count: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span><span class="p">
+
+        </span><span class="k">if</span><span class="p"> </span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p"> </span><span class="p">&gt;=</span><span class="p"> </span><span class="mi">3</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;3rd: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Note that unlike Go/C, the program name is NOT
+included in <code>args</code>.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java CommandLineArgs.java a b c d</span>
+<span class="go">args: [a, b, c, d]</span>
+<span class="go">count: 4</span>
+<span class="go">3rd: c</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../environment-variables" rel="next">Environment Variables</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

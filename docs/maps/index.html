@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Maps</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../lists';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../functions';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="maps">
+      <h2><a href="../">Java by Example</a>: Maps</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><em>Maps</em> (via <code>HashMap</code>) are Java&rsquo;s built-in
+associative data type (sometimes called
+<em>hashes</em> or <em>dicts</em> in other languages).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">HashMap</span><span class="p">;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Map</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Maps</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>To create an empty map, use <code>new HashMap&lt;&gt;()</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">m</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">HashMap</span><span class="p">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="p"> </span><span class="nb">Integer</span><span class="p">&gt;();</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Set key/value pairs using <code>put()</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nx">m</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s">&quot;k1&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">7</span><span class="p">);</span><span class="p">
+        </span><span class="nx">m</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s">&quot;k2&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">13</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;map: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">m</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Get a value for a key with <code>get()</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;v1: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&quot;k1&quot;</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>The <code>size()</code> method returns the number of
+key/value pairs.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;len: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">size</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>The <code>remove()</code> method deletes key/value pairs.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nx">m</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s">&quot;k2&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;map: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">m</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>containsKey()</code> checks for the presence of a key.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;has: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">containsKey</span><span class="p">(</span><span class="s">&quot;k2&quot;</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>Map.of()</code> creates an immutable map inline
+(Java 9+).</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">Map</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;bar&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;map: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">n</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Maps.java</span>
+<span class="go">map: {k1=7, k2=13}</span>
+<span class="go">v1: 7</span>
+<span class="go">len: 2</span>
+<span class="go">map: {k1=7}</span>
+<span class="go">has: false</span>
+<span class="go">map: {bar=2, foo=1}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../functions" rel="next">Functions</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

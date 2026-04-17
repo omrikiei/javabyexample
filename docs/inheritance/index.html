@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Inheritance</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../enums';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../generics';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="inheritance">
+      <h2><a href="../">Java by Example</a>: Inheritance</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java supports class <em>inheritance</em> via <code>extends</code>.
+This is one of the fundamental OOP principles.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// Base class</span><span class="p">
+</span><span class="k">class</span><span class="p"> </span><span class="nx">Animal</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="nb">String</span><span class="p"> </span><span class="nx">name</span><span class="p">;</span><span class="p">
+
+    </span><span class="nx">Animal</span><span class="p">(</span><span class="nb">String</span><span class="p"> </span><span class="nx">name</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">name</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">void</span><span class="p"> </span><span class="nx">speak</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">name</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot; makes a sound&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Subclasses extend the parent and can override
+methods using <code>@Override</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">class</span><span class="p"> </span><span class="nx">Dog</span><span class="p"> </span><span class="k">extends</span><span class="p"> </span><span class="nx">Animal</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="nx">Dog</span><span class="p">(</span><span class="nb">String</span><span class="p"> </span><span class="nx">name</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">super</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="p">@</span><span class="nx">Override</span><span class="p">
+    </span><span class="k">void</span><span class="p"> </span><span class="nx">speak</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">name</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot; barks&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Polymorphism: a parent reference can point
+to a child object.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Inheritance</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nx">Animal</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Animal</span><span class="p">(</span><span class="s">&quot;Generic Animal&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nx">Animal</span><span class="p"> </span><span class="nx">d</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Dog</span><span class="p">(</span><span class="s">&quot;Rex&quot;</span><span class="p">);</span><span class="p">
+
+        </span><span class="nx">a</span><span class="p">.</span><span class="nx">speak</span><span class="p">();</span><span class="p">
+        </span><span class="nx">d</span><span class="p">.</span><span class="nx">speak</span><span class="p">();</span><span class="p">
+
+        </span><span class="c1">// instanceof check</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;d is Dog: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="p">(</span><span class="nx">d</span><span class="p"> </span><span class="k">instanceof</span><span class="p"> </span><span class="nx">Dog</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> javac Inheritance.java</span>
+<span class="gp">$</span><span class="go"> java Inheritance</span>
+<span class="go">Generic Animal makes a sound</span>
+<span class="go">Rex barks</span>
+<span class="go">d is Dog: true</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../generics" rel="next">Generics</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

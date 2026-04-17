@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: String Formatting</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../sorting-by-comparator';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../regular-expressions';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="string-formatting">
+      <h2><a href="../">Java by Example</a>: String Formatting</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java offers several ways to format strings.
+<code>String.format</code>, <code>printf</code>, and the
+newer <code>formatted()</code> method (Java 15+).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">StringFormatting</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="k">record</span><span class="p"> </span><span class="nx">Point</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">x</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">y</span><span class="p">)</span><span class="p"> </span><span class="p">{}</span><span class="p">
+
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">p</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>General formatting with <code>printf</code> / <code>format</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Print a representation of the object</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;struct1: %s%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">p</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// String formatting</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;string: %s%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;hello&quot;</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Integer formatting</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;int:     %d%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">42</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Float formatting and width control.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;float:   %.2f%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">3.14159</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;float:   %e%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">100000.0</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Right-justify in a 10-char wide field</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;right:   |%10d|%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">42</span><span class="p">);</span><span class="p">
+        </span><span class="c1">// Left-justify</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;left:    |%-10d|%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">42</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>String.format</code> returns a string without
+printing it.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">String</span><span class="p"> </span><span class="nx">s</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s">&quot;format: %s has %d points&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;Java&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">100</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java StringFormatting.java</span>
+<span class="go">struct1: Point[x=1, y=2]</span>
+<span class="go">string: hello</span>
+<span class="go">int:     42</span>
+<span class="go">float:   3.14</span>
+<span class="go">float:   1.000000e+05</span>
+<span class="go">right:   |        42|</span>
+<span class="go">left:    |42        |</span>
+<span class="go">format: Java has 100 points</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../regular-expressions" rel="next">Regular Expressions</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

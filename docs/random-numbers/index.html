@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Random Numbers</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../time';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../streams';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="random-numbers">
+      <h2><a href="../">Java by Example</a>: Random Numbers</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java&rsquo;s <code>java.util.Random</code> and
+<code>ThreadLocalRandom</code> (or <code>RandomGenerator</code>
+in Java 17+) provide pseudo-random number generation.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">Random</span><span class="p">;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">concurrent</span><span class="p">.</span><span class="nx">ThreadLocalRandom</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">RandomNumbers</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Random integers in [0, 100)</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">rng</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Random</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">rng</span><span class="p">.</span><span class="nx">nextInt</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">rng</span><span class="p">.</span><span class="nx">nextInt</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Random floats in [0.0, 1.0).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;%.4f%n&quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">rng</span><span class="p">.</span><span class="nx">nextDouble</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Using ThreadLocalRandom for concurrent scenarios.
+Seeding for reproducible results.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Seeded random for reproducibility</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">seeded</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Random</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">seeded</span><span class="p">.</span><span class="nx">nextInt</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">seeded</span><span class="p">.</span><span class="nx">nextInt</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Some of the generated numbers may differ on
+your machine. Seeded generators always produce
+the same sequence.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java RandomNumbers.java</span>
+<span class="go">68</span>
+<span class="go">41</span>
+<span class="go">0.6591</span>
+<span class="go">0</span>
+<span class="go">68</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../streams" rel="next">Streams</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

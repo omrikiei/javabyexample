@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Environment Variables</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../command-line-arguments';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../logging';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="environment-variables">
+      <h2><a href="../">Java by Example</a>: Environment Variables</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><a href="https://docs.oracle.com/javase/tutorial/essential/environment/env.html">Environment variables</a>
+are read using <code>System.getenv()</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">EnvironmentVariables</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Get a specific variable</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;HOME: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nb">System</span><span class="p">.</span><span class="nx">getenv</span><span class="p">(</span><span class="s">&quot;HOME&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;FOO:  &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nb">System</span><span class="p">.</span><span class="nx">getenv</span><span class="p">(</span><span class="s">&quot;FOO&quot;</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>List all environment variables.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// All environment variables</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">getenv</span><span class="p">().</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">key</span><span class="p">,</span><span class="p"> </span><span class="nx">val</span><span class="p">)</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="k">if</span><span class="p"> </span><span class="p">(</span><span class="nx">key</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s">&quot;JAVA&quot;</span><span class="p">))</span><span class="p"> </span><span class="p">{</span><span class="p">
+                </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">key</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot;=&quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">val</span><span class="p">);</span><span class="p">
+            </span><span class="p">}</span><span class="p">
+        </span><span class="p">});</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> FOO=bar java EnvironmentVariables.java</span>
+<span class="go">HOME: /home/user</span>
+<span class="go">FOO:  bar</span>
+<span class="go"></span>
+<span class="go">JAVA_HOME=/usr/lib/jvm/java-21</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../logging" rel="next">Logging</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

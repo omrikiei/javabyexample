@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Exit</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../processes';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="exit">
+      <h2><a href="../">Java by Example</a>: Exit</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Use <code>System.exit()</code> to immediately exit with
+a given status code.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Exit</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// This will be printed</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;starting&quot;</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Exit with status 3</span><span class="p">
+        </span><span class="c1">// Note: finally blocks and shutdown hooks</span><span class="p">
+        </span><span class="c1">// may or may not run depending on the JVM</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// This will never be reached</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;unreachable&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>If you run <code>exit</code>, it will exit with
+status 3. The shell will show the exit code.</p>
+          </td>
+          <td class="code leading">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Exit.java</span>
+<span class="go">starting</span>
+<span class="gp">$</span><span class="go"> echo $?</span>
+<span class="go">3</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Note that unlike Go, the <code>main</code> method
+returning normally exits with status 0.
+Use <code>System.exit(code)</code> for non-zero exits.</p>
+          </td>
+          <td class="code empty">
+            
+          </td>
+        </tr>
+        
+      </table>
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Generics</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../inheritance';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../sealed-classes';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="generics">
+      <h2><a href="../">Java by Example</a>: Generics</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Starting with Java 5, <em>generics</em> let you write
+classes, interfaces, and methods that work with
+any type while providing compile-time type safety.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// A generic class that can hold any type.</span><span class="p">
+</span><span class="k">class</span><span class="p"> </span><span class="nx">Box</span><span class="p">&lt;</span><span class="nx">T</span><span class="p">&gt;</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">private</span><span class="p"> </span><span class="nx">T</span><span class="p"> </span><span class="nx">value</span><span class="p">;</span><span class="p">
+
+    </span><span class="nx">Box</span><span class="p">(</span><span class="nx">T</span><span class="p"> </span><span class="nx">value</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">value</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="nx">T</span><span class="p"> </span><span class="nx">get</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">value</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Generic methods can also be defined independently.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">List</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Generics</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="c1">// A generic method</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="p">&lt;</span><span class="nx">T</span><span class="p"> </span><span class="k">extends</span><span class="p"> </span><span class="nx">Comparable</span><span class="p">&lt;</span><span class="nx">T</span><span class="p">&gt;&gt;</span><span class="p"> </span><span class="nx">T</span><span class="p"> </span><span class="nx">max</span><span class="p">(</span><span class="nx">T</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="nx">T</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">compareTo</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">&gt;=</span><span class="p"> </span><span class="mi">0</span><span class="p"> </span><span class="p">?</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="nx">b</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Using generic classes and methods.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">intBox</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Box</span><span class="p">&lt;&gt;(</span><span class="mi">42</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;int box: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">intBox</span><span class="p">.</span><span class="nx">get</span><span class="p">());</span><span class="p">
+
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">strBox</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Box</span><span class="p">&lt;&gt;(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;str box: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">strBox</span><span class="p">.</span><span class="nx">get</span><span class="p">());</span><span class="p">
+
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;max(3,5): &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">max</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="p"> </span><span class="mi">5</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;max(a,z): &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">max</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;z&quot;</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> javac Generics.java</span>
+<span class="gp">$</span><span class="go"> java Generics</span>
+<span class="go">int box: 42</span>
+<span class="go">str box: hello</span>
+<span class="go">max(3,5): 5</span>
+<span class="go">max(a,z): z</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../sealed-classes" rel="next">Sealed Classes</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

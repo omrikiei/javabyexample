@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Switch</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../if-else';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../arrays';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="switch">
+      <h2><a href="../">Java by Example</a>: Switch</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><code>switch</code> statements express conditionals across
+many branches. Java&rsquo;s traditional switch uses
+<code>break</code> to prevent fall-through. Since Java 14,
+<em>switch expressions</em> with arrow syntax are available.</p>
+          </td>
+          <td class="code empty leading">
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Here&rsquo;s a basic <code>switch</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">int</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">2</span><span class="p">;</span><span class="p">
+</span><span class="k">switch</span><span class="p"> </span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">case</span><span class="p"> </span><span class="mi">1</span><span class="p">:</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;one&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="k">break</span><span class="p">;</span><span class="p">
+    </span><span class="k">case</span><span class="p"> </span><span class="mi">2</span><span class="p">:</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;two&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="k">break</span><span class="p">;</span><span class="p">
+    </span><span class="k">case</span><span class="p"> </span><span class="mi">3</span><span class="p">:</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;three&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="k">break</span><span class="p">;</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>You can use commas to separate multiple expressions
+in the same <code>case</code> (Java 14+ arrow syntax). This
+also works as an expression.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">var</span><span class="p"> </span><span class="nx">day</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">time</span><span class="p">.</span><span class="nx">LocalDate</span><span class="p">.</span><span class="nx">now</span><span class="p">().</span><span class="nx">getDayOfWeek</span><span class="p">();</span><span class="p">
+</span><span class="k">var</span><span class="p"> </span><span class="nx">type</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">switch</span><span class="p"> </span><span class="p">(</span><span class="nx">day</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">case</span><span class="p"> </span><span class="nx">MONDAY</span><span class="p">,</span><span class="p"> </span><span class="nx">TUESDAY</span><span class="p">,</span><span class="p"> </span><span class="nx">WEDNESDAY</span><span class="p">,</span><span class="p">
+         </span><span class="nx">THURSDAY</span><span class="p">,</span><span class="p"> </span><span class="nx">FRIDAY</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="s">&quot;weekday&quot;</span><span class="p">;</span><span class="p">
+    </span><span class="k">case</span><span class="p"> </span><span class="nx">SATURDAY</span><span class="p">,</span><span class="p"> </span><span class="nx">SUNDAY</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="s">&quot;weekend&quot;</span><span class="p">;</span><span class="p">
+</span><span class="p">};</span><span class="p">  
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">type</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>switch</code> without a variable is not directly
+supported in Java, but you can achieve the same
+with if/else chains or switch expressions on
+booleans (Java 21+).</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">var</span><span class="p"> </span><span class="nx">t</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">time</span><span class="p">.</span><span class="nx">LocalTime</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span><span class="p">
+</span><span class="k">if</span><span class="p"> </span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">getHour</span><span class="p">()</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">12</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;It&#x27;s before noon&quot;</span><span class="p">);</span><span class="p">
+</span><span class="p">}</span><span class="p"> </span><span class="k">else</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;It&#x27;s after noon&quot;</span><span class="p">);</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Switch.java</span>
+<span class="go">two</span>
+<span class="go">weekday</span>
+<span class="go">It&#x27;s before noon</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../arrays" rel="next">Arrays</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

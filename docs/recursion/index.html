@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Recursion</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../lambdas';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../strings';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="recursion">
+      <h2><a href="../">Java by Example</a>: Recursion</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java supports <em>recursive methods</em>: methods that
+call themselves.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Recursion</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="c1">// This fact method calls itself until it</span><span class="p">
+    </span><span class="c1">// reaches the base case of fact(0).</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">fact</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">n</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">if</span><span class="p"> </span><span class="p">(</span><span class="nx">n</span><span class="p"> </span><span class="p">==</span><span class="p"> </span><span class="mi">0</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="k">return</span><span class="p"> </span><span class="mi">1</span><span class="p">;</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">fact</span><span class="p">(</span><span class="nx">n</span><span class="p"> </span><span class="p">-</span><span class="p"> </span><span class="mi">1</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Unlike some languages, Java doesn&rsquo;t support
+tail call optimization. For deep recursion,
+consider iterative approaches.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">fact</span><span class="p">(</span><span class="mi">7</span><span class="p">));</span><span class="p">
+
+        </span><span class="c1">// Lambdas can also be recursive via</span><span class="p">
+        </span><span class="c1">// method references or by using a</span><span class="p">
+        </span><span class="c1">// wrapper.</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Recursion.java</span>
+<span class="go">5040</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../strings" rel="next">Strings</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

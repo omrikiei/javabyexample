@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Processes</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../logging';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../exit';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="processes">
+      <h2><a href="../">Java by Example</a>: Processes</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java can spawn external processes using
+<code>ProcessBuilder</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Processes</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Simple command</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">process</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ProcessBuilder</span><span class="p">(</span><span class="s">&quot;date&quot;</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">start</span><span class="p">();</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">output</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">String</span><span class="p">(</span><span class="p">
+            </span><span class="nx">process</span><span class="p">.</span><span class="nx">getInputStream</span><span class="p">().</span><span class="nx">readAllBytes</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;output: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">output</span><span class="p">.</span><span class="nx">trim</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;exit: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">waitFor</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Running commands with arguments and handling stderr.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Command with arguments</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">p2</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ProcessBuilder</span><span class="p">(</span><span class="s">&quot;ls&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;-la&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;/tmp&quot;</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">redirectErrorStream</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">start</span><span class="p">();</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">lines</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">BufferedReader</span><span class="p">(</span><span class="p">
+            </span><span class="k">new</span><span class="p"> </span><span class="nx">InputStreamReader</span><span class="p">(</span><span class="nx">p2</span><span class="p">.</span><span class="nx">getInputStream</span><span class="p">()))</span><span class="p">
+            </span><span class="p">.</span><span class="nx">lines</span><span class="p">().</span><span class="nx">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">toList</span><span class="p">();</span><span class="p">
+        </span><span class="nx">lines</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">::</span><span class="nx">println</span><span class="p">);</span><span class="p">
+        </span><span class="nx">p2</span><span class="p">.</span><span class="nx">waitFor</span><span class="p">();</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Processes.java</span>
+<span class="go">output: Thu Jan 15 10:30:00 UTC 2024</span>
+<span class="go">exit: 0</span>
+<span class="go">total 48</span>
+<span class="go">drwxrwxrwt 12 root root 4096 Jan 15 10:30 .</span>
+<span class="go">drwxr-xr-x 19 root root 4096 Jan 10 00:00 ..</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../exit" rel="next">Exit</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Enums</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../interfaces';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../inheritance';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="enums">
+      <h2><a href="../">Java by Example</a>: Enums</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><em>Enum types</em> in Java are full classes that represent
+a fixed set of constants. They can have fields,
+methods, and constructors.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// A basic enum.</span><span class="p">
+</span><span class="k">enum</span><span class="p"> </span><span class="nx">Direction</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="nx">NORTH</span><span class="p">,</span><span class="p"> </span><span class="nx">SOUTH</span><span class="p">,</span><span class="p"> </span><span class="nx">EAST</span><span class="p">,</span><span class="p"> </span><span class="nx">WEST</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Enums can have fields and methods.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">enum</span><span class="p"> </span><span class="nx">Planet</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="nx">MERCURY</span><span class="p">(</span><span class="mi">3.303e</span><span class="p">+</span><span class="mi">23</span><span class="p">,</span><span class="p"> </span><span class="mi">2.4397e6</span><span class="p">),</span><span class="p">
+    </span><span class="nx">VENUS</span><span class="p">(</span><span class="mi">4.869e</span><span class="p">+</span><span class="mi">24</span><span class="p">,</span><span class="p"> </span><span class="mi">6.0518e6</span><span class="p">),</span><span class="p">
+    </span><span class="nx">EARTH</span><span class="p">(</span><span class="mi">5.976e</span><span class="p">+</span><span class="mi">24</span><span class="p">,</span><span class="p"> </span><span class="mi">6.37814e6</span><span class="p">);</span><span class="p">
+
+    </span><span class="k">final</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">mass</span><span class="p">;</span><span class="p">
+    </span><span class="k">final</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">radius</span><span class="p">;</span><span class="p">
+
+    </span><span class="nx">Planet</span><span class="p">(</span><span class="k">double</span><span class="p"> </span><span class="nx">mass</span><span class="p">,</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">radius</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">mass</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">mass</span><span class="p">;</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">radius</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">radius</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">surfaceGravity</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">final</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">G</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">6.67300E</span><span class="p">-</span><span class="mi">11</span><span class="p">;</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">G</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">mass</span><span class="p"> </span><span class="p">/</span><span class="p"> </span><span class="p">(</span><span class="nx">radius</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">radius</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Using enums.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Enums</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">d</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">Direction</span><span class="p">.</span><span class="nx">NORTH</span><span class="p">;</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">d</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Enums work with switch</span><span class="p">
+        </span><span class="k">switch</span><span class="p"> </span><span class="p">(</span><span class="nx">d</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="k">case</span><span class="p"> </span><span class="nx">NORTH</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Going up!&quot;</span><span class="p">);</span><span class="p">
+            </span><span class="k">case</span><span class="p"> </span><span class="nx">SOUTH</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Going down!&quot;</span><span class="p">);</span><span class="p">
+            </span><span class="k">default</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Going sideways!&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+
+        </span><span class="c1">// Enum methods</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">printf</span><span class="p">(</span><span class="s">&quot;Earth gravity: %.2f m/s²%n&quot;</span><span class="p">,</span><span class="p">
+            </span><span class="nx">Planet</span><span class="p">.</span><span class="nx">EARTH</span><span class="p">.</span><span class="nx">surfaceGravity</span><span class="p">());</span><span class="p">
+
+        </span><span class="c1">// Iterate over all values</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">p</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="nx">Planet</span><span class="p">.</span><span class="nx">values</span><span class="p">())</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">());</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> javac Enums.java</span>
+<span class="gp">$</span><span class="go"> java Enums</span>
+<span class="go">NORTH</span>
+<span class="go">Going up!</span>
+<span class="go">Earth gravity: 9.80 m/s²</span>
+<span class="go">MERCURY</span>
+<span class="go">VENUS</span>
+<span class="go">EARTH</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../inheritance" rel="next">Inheritance</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

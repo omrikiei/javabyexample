@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Hello World</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../values';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="hello-world">
+      <h2><a href="../">Java by Example</a>: Hello World</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Our first program will print the classic &ldquo;hello world&rdquo;
+message. Here&rsquo;s the full source code.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">HelloWorld</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>To run the program, put the code in <code>HelloWorld.java</code>
+and use <code>javac</code> to compile, then <code>java</code> to run.</p>
+          </td>
+          <td class="code leading">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> javac HelloWorld.java</span>
+<span class="gp">$</span><span class="go"> java HelloWorld</span>
+<span class="go">hello world</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Starting with Java 11, you can also run single-file
+programs directly.</p>
+          </td>
+          <td class="code leading">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java HelloWorld.java</span>
+<span class="go">hello world</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Now that we can run and build basic Java programs,
+let&rsquo;s learn more about the language.</p>
+          </td>
+          <td class="code empty">
+            
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../values" rel="next">Values</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

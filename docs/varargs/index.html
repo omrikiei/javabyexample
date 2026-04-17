@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Varargs</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../method-overloading';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../lambdas';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="varargs">
+      <h2><a href="../">Java by Example</a>: Varargs</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/arguments.html">Varargs</a>
+(variable-length arguments) let methods accept
+any number of arguments of a given type.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Varargs</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="c1">// This method takes an arbitrary number</span><span class="p">
+    </span><span class="c1">// of ints.</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">sum</span><span class="p">(</span><span class="k">int</span><span class="p">...</span><span class="p"> </span><span class="nx">nums</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">int</span><span class="p"> </span><span class="nx">total</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="nx">nums</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">total</span><span class="p"> </span><span class="p">+=</span><span class="p"> </span><span class="nx">n</span><span class="p">;</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">total</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Varargs methods can be called with individual
+arguments or an array.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">));</span><span class="p">
+
+        </span><span class="k">int</span><span class="p">[]</span><span class="p"> </span><span class="nx">nums</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">,</span><span class="p"> </span><span class="mi">4</span><span class="p">};</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">sum</span><span class="p">(</span><span class="nx">nums</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Varargs.java</span>
+<span class="go">3</span>
+<span class="go">6</span>
+<span class="go">10</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../lambdas" rel="next">Lambdas</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

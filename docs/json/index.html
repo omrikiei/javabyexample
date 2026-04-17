@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: JSON</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../regular-expressions';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../time';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="json">
+      <h2><a href="../">Java by Example</a>: JSON</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java doesn&rsquo;t have built-in JSON support in the
+standard library, but common libraries like
+<em>Jackson</em> and <em>Gson</em> are widely used.
+Here we show a simple approach using
+the built-in <code>javax.json</code> or manual
+parsing concepts.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.*;</span><span class="p">
+
+</span><span class="c1">// For simple cases, you can represent JSON</span><span class="p">
+</span><span class="c1">// with Maps and Lists. For real projects,</span><span class="p">
+</span><span class="c1">// use Jackson or Gson.</span><span class="p">
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Json</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Building a JSON-like structure</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">person</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">LinkedHashMap</span><span class="p">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="p"> </span><span class="nb">Object</span><span class="p">&gt;();</span><span class="p">
+        </span><span class="nx">person</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;Alice&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nx">person</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span><span class="p"> </span><span class="mi">30</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Nested structures and arrays.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nx">person</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="s">&quot;hobbies&quot;</span><span class="p">,</span><span class="p"> </span><span class="nb">List</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;reading&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;coding&quot;</span><span class="p">));</span><span class="p">
+
+        </span><span class="c1">// Simple serialization (not real JSON,</span><span class="p">
+        </span><span class="c1">// but demonstrates the concept)</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>For proper JSON, use a library like Jackson:</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// With Jackson (pseudo-code):</span><span class="p">
+        </span><span class="c1">// ObjectMapper mapper = new ObjectMapper();</span><span class="p">
+        </span><span class="c1">// String json = mapper.writeValueAsString(person);</span><span class="p">
+        </span><span class="c1">// Person p = mapper.readValue(json, Person.class);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;name: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">person</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>For production use, add Jackson or Gson
+to your project dependencies.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Json.java</span>
+<span class="go">{name=Alice, age=30, hobbies=[reading, coding]}</span>
+<span class="go">name: Alice</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../time" rel="next">Time</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

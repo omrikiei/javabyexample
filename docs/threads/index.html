@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Threads</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../exceptions';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../virtual-threads';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="threads">
+      <h2><a href="../">Java by Example</a>: Threads</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java has built-in support for concurrent execution
+via <em>threads</em>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Threads</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">task</span><span class="p">(</span><span class="nb">String</span><span class="p"> </span><span class="nx">name</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">3</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">name</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot;: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">i</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Start a new thread using <code>Thread.start()</code> or
+<code>Thread.ofVirtual()</code> (Java 21+).</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Traditional thread</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">t1</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nb">Thread</span><span class="p">(()</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">task</span><span class="p">(</span><span class="s">&quot;thread1&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nx">t1</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span><span class="p">
+
+        </span><span class="c1">// Virtual thread (Java 21+)</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">t2</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">Thread</span><span class="p">.</span><span class="nx">ofVirtual</span><span class="p">().</span><span class="nx">start</span><span class="p">(()</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">task</span><span class="p">(</span><span class="s">&quot;thread2&quot;</span><span class="p">));</span><span class="p">
+
+        </span><span class="c1">// Run in the main thread too</span><span class="p">
+        </span><span class="nx">task</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Wait for threads to finish</span><span class="p">
+        </span><span class="nx">t1</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span><span class="p">
+        </span><span class="nx">t2</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>When we run this program, we see the output
+of the threads interleaved. The exact ordering
+may vary between runs.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Threads.java</span>
+<span class="go">main: 0</span>
+<span class="go">main: 1</span>
+<span class="go">main: 2</span>
+<span class="go">thread1: 0</span>
+<span class="go">thread1: 1</span>
+<span class="go">thread1: 2</span>
+<span class="go">thread2: 0</span>
+<span class="go">thread2: 1</span>
+<span class="go">thread2: 2</span>
+<span class="go">done</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../virtual-threads" rel="next">Virtual Threads</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

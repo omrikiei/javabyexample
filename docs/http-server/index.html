@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: HTTP Server</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../http-client';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../command-line-arguments';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="http-server">
+      <h2><a href="../">Java by Example</a>: HTTP Server</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java includes a simple built-in HTTP server via
+<code>com.sun.net.httpserver</code>. For production,
+use frameworks like Spring Boot or Javalin.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">com</span><span class="p">.</span><span class="nx">sun</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">httpserver</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">InetSocketAddress</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">HttpServer</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">hello</span><span class="p">(</span><span class="nx">HttpExchange</span><span class="p"> </span><span class="nx">exchange</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">IOException</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">response</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="s">&quot;hello\n&quot;</span><span class="p">;</span><span class="p">
+        </span><span class="nx">exchange</span><span class="p">.</span><span class="nx">sendResponseHeaders</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="p"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">length</span><span class="p">());</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">os</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">exchange</span><span class="p">.</span><span class="nx">getResponseBody</span><span class="p">())</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">os</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">getBytes</span><span class="p">());</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Setting up request handlers.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">headers</span><span class="p">(</span><span class="nx">HttpExchange</span><span class="p"> </span><span class="nx">exchange</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">IOException</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">headers</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">exchange</span><span class="p">.</span><span class="nx">getRequestHeaders</span><span class="p">();</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">sb</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">StringBuilder</span><span class="p">();</span><span class="p">
+        </span><span class="nx">headers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">key</span><span class="p">,</span><span class="p"> </span><span class="nx">values</span><span class="p">)</span><span class="p"> </span><span class="p">-&gt;</span><span class="p">
+            </span><span class="nx">sb</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">key</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s">&quot;: &quot;</span><span class="p">)</span><span class="p">
+              </span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">values</span><span class="p">)).</span><span class="nx">append</span><span class="p">(</span><span class="s">&quot;\n&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">response</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">sb</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span><span class="p">
+        </span><span class="nx">exchange</span><span class="p">.</span><span class="nx">sendResponseHeaders</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="p"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">length</span><span class="p">());</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">os</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">exchange</span><span class="p">.</span><span class="nx">getResponseBody</span><span class="p">())</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">os</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">getBytes</span><span class="p">());</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Starting the server.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">server</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">com</span><span class="p">.</span><span class="nx">sun</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">httpserver</span><span class="p">.</span><span class="nx">HttpServer</span><span class="p">
+            </span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">new</span><span class="p"> </span><span class="nx">InetSocketAddress</span><span class="p">(</span><span class="mi">8090</span><span class="p">),</span><span class="p"> </span><span class="mi">0</span><span class="p">);</span><span class="p">
+        </span><span class="nx">server</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">HttpServer</span><span class="p">::</span><span class="nx">hello</span><span class="p">);</span><span class="p">
+        </span><span class="nx">server</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="s">&quot;/headers&quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">HttpServer</span><span class="p">::</span><span class="nx">headers</span><span class="p">);</span><span class="p">
+        </span><span class="nx">server</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Server on :8090&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Run the server in the background and test with curl.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java HttpServer.java &amp;</span>
+<span class="gp">$</span><span class="go"> curl localhost:8090/hello</span>
+<span class="go">hello</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../command-line-arguments" rel="next">Command-Line Arguments</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

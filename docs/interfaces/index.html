@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Interfaces</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../records';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../enums';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="interfaces">
+      <h2><a href="../">Java by Example</a>: Interfaces</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><em>Interfaces</em> are named collections of method
+signatures. Unlike Go, Java classes must
+explicitly declare that they implement an
+interface.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// A basic interface for geometric shapes.</span><span class="p">
+</span><span class="k">interface</span><span class="p"> </span><span class="nx">Geometry</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">area</span><span class="p">();</span><span class="p">
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">perimeter</span><span class="p">();</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Classes implement interfaces explicitly with
+the <code>implements</code> keyword.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">class</span><span class="p"> </span><span class="nx">Circle</span><span class="p"> </span><span class="k">implements</span><span class="p"> </span><span class="nx">Geometry</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">radius</span><span class="p">;</span><span class="p">
+
+    </span><span class="nx">Circle</span><span class="p">(</span><span class="k">double</span><span class="p"> </span><span class="nx">radius</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">radius</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">radius</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">public</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">area</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">radius</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">radius</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">public</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">perimeter</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="mi">2</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">radius</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>If a variable has an interface type, you can
+call methods from that interface.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Interfaces</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">measure</span><span class="p">(</span><span class="nx">Geometry</span><span class="p"> </span><span class="nx">g</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">g</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;area: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">g</span><span class="p">.</span><span class="nx">area</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;perim: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">g</span><span class="p">.</span><span class="nx">perimeter</span><span class="p">());</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">c</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Circle</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="p">
+        </span><span class="nx">measure</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> javac Interfaces.java</span>
+<span class="gp">$</span><span class="go"> java Interfaces</span>
+<span class="go">Circle@&lt;hash&gt;</span>
+<span class="go">area: 78.53981633974483</span>
+<span class="go">perim: 31.41592653589793</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../enums" rel="next">Enums</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

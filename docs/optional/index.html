@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Optional</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../streams';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../reading-files';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="optional">
+      <h2><a href="../">Java by Example</a>: Optional</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><code>Optional</code> (Java 8+) is a container that may
+or may not contain a value. It helps avoid
+<code>NullPointerException</code> and makes APIs clearer.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Optional</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Optionals</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="c1">// A method that may or may not return a value.</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="nb">Optional</span><span class="p">&lt;</span><span class="nb">String</span><span class="p">&gt;</span><span class="p"> </span><span class="nx">findUser</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">id</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">if</span><span class="p"> </span><span class="p">(</span><span class="nx">id</span><span class="p"> </span><span class="p">==</span><span class="p"> </span><span class="mi">1</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="k">return</span><span class="p"> </span><span class="nb">Optional</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nb">Optional</span><span class="p">.</span><span class="nx">empty</span><span class="p">();</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Using Optional values.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Present value</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">user</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">findUser</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;present: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">isPresent</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;value: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">user</span><span class="p">.</span><span class="nx">get</span><span class="p">());</span><span class="p">
+
+        </span><span class="c1">// Absent value with default</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">missing</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">findUser</span><span class="p">(</span><span class="mi">99</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;absent: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">missing</span><span class="p">.</span><span class="nx">orElse</span><span class="p">(</span><span class="s">&quot;unknown&quot;</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Chaining operations on Optional.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Map and flatMap</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">upper</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">findUser</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="nx">toUpperCase</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;mapped: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">upper</span><span class="p">.</span><span class="nx">orElse</span><span class="p">(</span><span class="s">&quot;N/A&quot;</span><span class="p">));</span><span class="p">
+
+        </span><span class="c1">// ifPresent</span><span class="p">
+        </span><span class="nx">findUser</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">ifPresent</span><span class="p">(</span><span class="nx">u</span><span class="p"> </span><span class="p">-&gt;</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;found: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">u</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Optionals.java</span>
+<span class="go">present: true</span>
+<span class="go">value: Alice</span>
+<span class="go">absent: unknown</span>
+<span class="go">mapped: ALICE</span>
+<span class="go">found: Alice</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../reading-files" rel="next">Reading Files</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

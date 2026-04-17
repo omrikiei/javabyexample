@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Streams</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../random-numbers';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../optional';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="streams">
+      <h2><a href="../">Java by Example</a>: Streams</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><em>Streams</em> (Java 8+) provide a functional-style API
+for processing sequences of elements. They support
+map, filter, reduce, and more.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">stream</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Streams</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">nums</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">List</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">,</span><span class="p"> </span><span class="mi">4</span><span class="p">,</span><span class="p"> </span><span class="mi">5</span><span class="p">,</span><span class="p"> </span><span class="mi">6</span><span class="p">,</span><span class="p"> </span><span class="mi">7</span><span class="p">,</span><span class="p"> </span><span class="mi">8</span><span class="p">,</span><span class="p"> </span><span class="mi">9</span><span class="p">,</span><span class="p"> </span><span class="mi">10</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Filter, map, and collect.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Filter even numbers and double them</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">result</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">nums</span><span class="p">.</span><span class="nx">stream</span><span class="p">()</span><span class="p">
+            </span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">%</span><span class="p"> </span><span class="mi">2</span><span class="p"> </span><span class="p">==</span><span class="p"> </span><span class="mi">0</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">n</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="mi">2</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">collect</span><span class="p">(</span><span class="nb">Collectors</span><span class="p">.</span><span class="nx">toList</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;result: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">result</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Reduce to a single value.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Sum all elements</span><span class="p">
+        </span><span class="k">int</span><span class="p"> </span><span class="nx">sum</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">nums</span><span class="p">.</span><span class="nx">stream</span><span class="p">()</span><span class="p">
+            </span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="p"> </span><span class="nb">Integer</span><span class="p">::</span><span class="nx">sum</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;sum: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">sum</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Other useful stream operations.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Count, min, max</span><span class="p">
+        </span><span class="k">long</span><span class="p"> </span><span class="nx">count</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">nums</span><span class="p">.</span><span class="nx">stream</span><span class="p">().</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">&gt;</span><span class="p"> </span><span class="mi">5</span><span class="p">).</span><span class="nx">count</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;count&gt;5: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">count</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Collecting to different types</span><span class="p">
+        </span><span class="nb">String</span><span class="p"> </span><span class="nx">joined</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">nums</span><span class="p">.</span><span class="nx">stream</span><span class="p">()</span><span class="p">
+            </span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="nx">valueOf</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">collect</span><span class="p">(</span><span class="nb">Collectors</span><span class="p">.</span><span class="nx">joining</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;joined: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">joined</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Grouping</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">grouped</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">nums</span><span class="p">.</span><span class="nx">stream</span><span class="p">()</span><span class="p">
+            </span><span class="p">.</span><span class="nx">collect</span><span class="p">(</span><span class="nb">Collectors</span><span class="p">.</span><span class="nx">groupingBy</span><span class="p">(</span><span class="nx">n</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">%</span><span class="p"> </span><span class="mi">2</span><span class="p"> </span><span class="p">==</span><span class="p"> </span><span class="mi">0</span><span class="p"> </span><span class="p">?</span><span class="p"> </span><span class="s">&quot;even&quot;</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="s">&quot;odd&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;grouped: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">grouped</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Streams.java</span>
+<span class="go">result: [4, 8, 12, 16, 20]</span>
+<span class="go">sum: 55</span>
+<span class="go">count&gt;5: 5</span>
+<span class="go">joined: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+<span class="go">grouped: {odd=[1, 3, 5, 7, 9], even=[2, 4, 6, 8, 10]}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../optional" rel="next">Optional</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

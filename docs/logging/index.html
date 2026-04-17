@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Logging</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../environment-variables';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../processes';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="logging">
+      <h2><a href="../">Java by Example</a>: Logging</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java includes <code>java.util.logging</code> in the
+standard library. In practice, many projects use
+<em>SLF4J</em> with <em>Logback</em> or <em>Log4j2</em>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">logging</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">LoggingExample</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">final</span><span class="p"> </span><span class="nx">Logger</span><span class="p"> </span><span class="nx">logger</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">Logger</span><span class="p">.</span><span class="nx">getLogger</span><span class="p">(</span><span class="p">
+        </span><span class="nx">LoggingExample</span><span class="p">.</span><span class="k">class</span><span class="p">.</span><span class="nx">getName</span><span class="p">());</span><span class="p">
+
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Default log levels</span><span class="p">
+        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s">&quot;This is an info message&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">warning</span><span class="p">(</span><span class="s">&quot;This is a warning&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">severe</span><span class="p">(</span><span class="s">&quot;This is severe&quot;</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Configuring log format.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Custom format</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">handler</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ConsoleHandler</span><span class="p">();</span><span class="p">
+        </span><span class="nx">handler</span><span class="p">.</span><span class="nx">setFormatter</span><span class="p">(</span><span class="k">new</span><span class="p"> </span><span class="nx">SimpleFormatter</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="p">@</span><span class="nx">Override</span><span class="p">
+            </span><span class="k">public</span><span class="p"> </span><span class="nb">String</span><span class="p"> </span><span class="nx">format</span><span class="p">(</span><span class="nx">LogRecord</span><span class="p"> </span><span class="nx">r</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+                </span><span class="k">return</span><span class="p"> </span><span class="nb">String</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s">&quot;[%s] %s: %s%n&quot;</span><span class="p">,</span><span class="p">
+                    </span><span class="nx">r</span><span class="p">.</span><span class="nx">getLevel</span><span class="p">(),</span><span class="p"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">getLoggerName</span><span class="p">(),</span><span class="p">
+                    </span><span class="nx">r</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">());</span><span class="p">
+            </span><span class="p">}</span><span class="p">
+        </span><span class="p">});</span><span class="p">
+        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">addHandler</span><span class="p">(</span><span class="nx">handler</span><span class="p">);</span><span class="p">
+        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">setUseParentHandlers</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="p">
+
+        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s">&quot;Custom formatted message&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java LoggingExample.java</span>
+<span class="go">Jan 15, 2024 10:30:00 AM LoggingExample main</span>
+<span class="go">INFO: This is an info message</span>
+<span class="go">Jan 15, 2024 10:30:00 AM LoggingExample main</span>
+<span class="go">WARNING: This is a warning</span>
+<span class="go">Jan 15, 2024 10:30:00 AM LoggingExample main</span>
+<span class="go">SEVERE: This is severe</span>
+<span class="go">[INFO] LoggingExample: Custom formatted message</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../processes" rel="next">Processes</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Functions</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../maps';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../method-overloading';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="functions">
+      <h2><a href="../">Java by Example</a>: Functions</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><em>Functions</em> (methods) are central to Java.
+We&rsquo;ll learn about them with a few examples.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// In Java, functions are always methods of a class.</span><span class="p">
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Functions</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="c1">// Here&#x27;s a method that takes two ints and</span><span class="p">
+    </span><span class="c1">// returns their sum as an int.</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">plus</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">b</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Java requires explicit return types. Unlike Go,
+Java does not support multiple return values
+natively (use a class or record instead).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="c1">// Methods can take multiple parameters of</span><span class="p">
+    </span><span class="c1">// the same or different types.</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">plusPlus</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">c</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">b</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">c</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Call a method as you&rsquo;d expect, with <code>name(args)</code>.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">int</span><span class="p"> </span><span class="nx">res</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">plus</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;1+2 = &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">res</span><span class="p">);</span><span class="p">
+
+        </span><span class="nx">res</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">plusPlus</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;1+2+3 = &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">res</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Functions.java</span>
+<span class="go">1+2 = 3</span>
+<span class="go">1+2+3 = 6</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../method-overloading" rel="next">Method Overloading</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

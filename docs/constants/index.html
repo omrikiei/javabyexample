@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Constants</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../variables';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../for';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="constants">
+      <h2><a href="../">Java by Example</a>: Constants</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java supports constants using the <code>final</code> keyword.
+<code>final</code> can be used with fields, local variables,
+and method parameters.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Constants</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="c1">// Class-level constants are typically</span><span class="p">
+    </span><span class="c1">// declared as static final.</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">final</span><span class="p"> </span><span class="nb">String</span><span class="p"> </span><span class="nx">S</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="s">&quot;constant&quot;</span><span class="p">;</span><span class="p">
+    </span><span class="k">static</span><span class="p"> </span><span class="k">final</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">N</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">500000000</span><span class="p">;</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>A constant expression can be used anywhere
+a value of its type is expected.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">S</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Constant expressions perform arithmetic
+with arbitrary precision at compile time.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">double</span><span class="p"> </span><span class="nx">d</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">3e20</span><span class="p"> </span><span class="p">/</span><span class="p"> </span><span class="nx">N</span><span class="p">;</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">d</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>A numeric constant has no type until it&rsquo;s
+given one, such as by a cast or assignment.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">((</span><span class="k">long</span><span class="p">)</span><span class="p"> </span><span class="nx">d</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Constants.java</span>
+<span class="go">constant</span>
+<span class="go">6.0E11</span>
+<span class="go">600000000000</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../for" rel="next">For</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

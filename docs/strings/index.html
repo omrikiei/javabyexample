@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Strings</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../recursion';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../classes';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="strings">
+      <h2><a href="../">Java by Example</a>: Strings</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java <code>String</code> is an immutable sequence of
+characters. The standard library provides
+a rich set of string methods.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Strings</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// String literals</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">s</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="s">&quot;Hello, World&quot;</span><span class="p">;</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Common string operations.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Contains:  &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Count:     &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">chars</span><span class="p">().</span><span class="nx">filter</span><span class="p">(</span><span class="nx">c</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">c</span><span class="p"> </span><span class="p">==</span><span class="p"> </span><span class="sc">&#x27;l&#x27;</span><span class="p">).</span><span class="nx">count</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;StartsWith:&quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;EndsWith:  &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;IndexOf:   &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Length:    &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>String transformation methods return new strings
+since Strings are immutable.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;ToUpper:   &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;ToLower:   &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Replace:   &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s">&quot;World&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;Java&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Substring: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="p"> </span><span class="mi">5</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;Trim:      &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot;  hi  &quot;</span><span class="p">.</span><span class="nx">trim</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Text blocks (Java 13+) for multi-line strings.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">tb</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="s">&quot;&quot;</span><span class="s">&quot;
+                Hello,
+                Java!
+                &quot;</span><span class="s">&quot;&quot;</span><span class="p">;</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">tb</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Strings.java</span>
+<span class="go">Hello, World</span>
+<span class="go">Contains:  true</span>
+<span class="go">Count:     3</span>
+<span class="go">StartsWith:true</span>
+<span class="go">EndsWith:  true</span>
+<span class="go">IndexOf:   7</span>
+<span class="go">Length:    12</span>
+<span class="go">ToUpper:   HELLO, WORLD</span>
+<span class="go">ToLower:   hello, world</span>
+<span class="go">Replace:   Hello, Java</span>
+<span class="go">Substring: Hello</span>
+<span class="go">Trim:      hi</span>
+<span class="go">Hello,</span>
+<span class="go">Java!</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../classes" rel="next">Classes</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

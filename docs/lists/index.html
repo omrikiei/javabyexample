@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Lists</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../arrays';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../maps';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="lists">
+      <h2><a href="../">Java by Example</a>: Lists</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p><em>Lists</em> in Java (via <code>ArrayList</code>) are resizable
+sequences, similar to Go&rsquo;s slices. They are one of
+the most commonly used data structures.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">ArrayList</span><span class="p">;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">List</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Lists</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>To create an empty list of strings, use
+<code>new ArrayList&lt;&gt;()</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">s</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ArrayList</span><span class="p">&lt;</span><span class="nb">String</span><span class="p">&gt;();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;emp: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>We can <code>add</code> elements to the list.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nx">s</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nx">s</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nx">s</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s">&quot;c&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;add: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Individual elements can be accessed with <code>get</code>.
+The <code>size()</code> method gives the list length.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;get: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;len: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">size</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Lists support many operations like <code>subList</code>
+(similar to Go&rsquo;s slicing).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;sub: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">subList</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>List.of()</code> creates an immutable list inline
+(Java 9+).</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">t</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">List</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;c&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;dcl: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">t</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Lists.java</span>
+<span class="go">emp: []</span>
+<span class="go">add: [a, b, c]</span>
+<span class="go">get: c</span>
+<span class="go">len: 3</span>
+<span class="go">sub: [b, c]</span>
+<span class="go">dcl: [a, b, c]</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../maps" rel="next">Maps</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

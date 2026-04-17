@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Writing Files</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../reading-files';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../http-client';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="writing-files">
+      <h2><a href="../">Java by Example</a>: Writing Files</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Writing files in Java follows similar patterns
+to reading them.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">nio</span><span class="p">.</span><span class="nx">file</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">WritingFiles</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Write a string directly (Java 11+)</span><span class="p">
+        </span><span class="nb">Files</span><span class="p">.</span><span class="nx">writeString</span><span class="p">(</span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat1&quot;</span><span class="p">),</span><span class="p"> </span><span class="s">&quot;hello\njava\n&quot;</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Writing with more control using BufferedWriter.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Buffered writing</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">writer</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">Files</span><span class="p">.</span><span class="nx">newBufferedWriter</span><span class="p">(</span><span class="p">
+                </span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat2&quot;</span><span class="p">)))</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">writer</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s">&quot;buffered\n&quot;</span><span class="p">);</span><span class="p">
+            </span><span class="nx">writer</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s">&quot;writes\n&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p"> </span><span class="c1">// auto-flushes and closes</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Appending to files.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Append to an existing file</span><span class="p">
+        </span><span class="nb">Files</span><span class="p">.</span><span class="nx">writeString</span><span class="p">(</span><span class="p">
+            </span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat1&quot;</span><span class="p">),</span><span class="p">
+            </span><span class="s">&quot;appended\n&quot;</span><span class="p">,</span><span class="p">
+            </span><span class="nx">StandardOpenOption</span><span class="p">.</span><span class="nx">APPEND</span><span class="p">);</span><span class="p">
+
+        </span><span class="c1">// Verify</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="nb">Files</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat1&quot;</span><span class="p">)));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="nb">Files</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat2&quot;</span><span class="p">)));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java WritingFiles.java</span>
+<span class="go">hello</span>
+<span class="go">java</span>
+<span class="go">appended</span>
+<span class="go">buffered</span>
+<span class="go">writes</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../http-client" rel="next">HTTP Client</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

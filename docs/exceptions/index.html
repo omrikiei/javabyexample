@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Exceptions</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../sealed-classes';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../threads';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="exceptions">
+      <h2><a href="../">Java by Example</a>: Exceptions</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java uses <em>exceptions</em> for error handling.
+Exceptions are objects that represent errors and
+can be thrown and caught.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// Custom exception by extending Exception.</span><span class="p">
+</span><span class="k">class</span><span class="p"> </span><span class="nx">ValidationException</span><span class="p"> </span><span class="k">extends</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">private</span><span class="p"> </span><span class="k">final</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">value</span><span class="p">;</span><span class="p">
+
+    </span><span class="nx">ValidationException</span><span class="p">(</span><span class="nb">String</span><span class="p"> </span><span class="nx">msg</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">value</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">super</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">value</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">int</span><span class="p"> </span><span class="nx">getValue</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">value</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Methods declare checked exceptions with <code>throws</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Exceptions</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">divide</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">ArithmeticException</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">/</span><span class="p"> </span><span class="nx">b</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">validate</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">age</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">ValidationException</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">if</span><span class="p"> </span><span class="p">(</span><span class="nx">age</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">0</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="k">throw</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ValidationException</span><span class="p">(</span><span class="s">&quot;negative age&quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">age</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Use <code>try/catch/finally</code> to handle exceptions.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Catching a runtime exception</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">divide</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="p"> </span><span class="mi">0</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p"> </span><span class="k">catch</span><span class="p"> </span><span class="p">(</span><span class="nx">ArithmeticException</span><span class="p"> </span><span class="nx">e</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;error: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">());</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+
+        </span><span class="c1">// Catching a custom exception</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nx">validate</span><span class="p">(-</span><span class="mi">5</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p"> </span><span class="k">catch</span><span class="p"> </span><span class="p">(</span><span class="nx">ValidationException</span><span class="p"> </span><span class="nx">e</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;invalid: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">getMessage</span><span class="p">()</span><span class="p">
+                </span><span class="p">+</span><span class="p"> </span><span class="s">&quot; (value=&quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">getValue</span><span class="p">()</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot;)&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+
+        </span><span class="c1">// try-with-resources for auto-closeable resources</span><span class="p">
+        </span><span class="c1">// (similar to Go&#x27;s defer)</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;done&quot;</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Exceptions.java</span>
+<span class="go">error: / by zero</span>
+<span class="go">invalid: negative age (value=-5)</span>
+<span class="go">done</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../threads" rel="next">Threads</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

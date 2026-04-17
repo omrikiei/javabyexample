@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Method Overloading</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../functions';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../varargs';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="method-overloading">
+      <h2><a href="../">Java by Example</a>: Method Overloading</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java supports <em>method overloading</em>: multiple
+methods with the same name but different parameter
+lists. This is a form of compile-time polymorphism.</p>
+          </td>
+          <td class="code empty leading">
+            
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Here we define two <code>add</code> methods &mdash; one for
+<code>int</code> and one for <code>double</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">MethodOverloading</span><span class="p"> </span><span class="p">{</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">add</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">b</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">static</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">add</span><span class="p">(</span><span class="k">double</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">b</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>You can also overload on the number of parameters.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">add</span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">c</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">b</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">c</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Java selects the correct method based on
+the argument types at compile time.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">add</span><span class="p">(</span><span class="mi">1.5</span><span class="p">,</span><span class="p"> </span><span class="mi">2.5</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java MethodOverloading.java</span>
+<span class="go">3</span>
+<span class="go">4.0</span>
+<span class="go">6</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../varargs" rel="next">Varargs</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

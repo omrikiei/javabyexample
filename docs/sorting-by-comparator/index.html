@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Sorting by Comparator</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../sorting';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../string-formatting';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="sorting-by-comparator">
+      <h2><a href="../">Java by Example</a>: Sorting by Comparator</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Sometimes we want to sort a collection by something
+other than its natural order. Use a <code>Comparator</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">SortingByComparator</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Sort strings by length</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">fruits</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">ArrayList</span><span class="p">&lt;&gt;(</span><span class="nb">List</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="p">
+            </span><span class="s">&quot;peach&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;kiwi&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;apple&quot;</span><span class="p">));</span><span class="p">
+
+        </span><span class="nx">fruits</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">Comparator</span><span class="p">.</span><span class="nx">comparingInt</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="nx">length</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">fruits</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>You can also sort with a custom lambda comparator.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Sort by last character</span><span class="p">
+        </span><span class="nx">fruits</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="k">char</span><span class="p"> </span><span class="nx">lastA</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">()</span><span class="p"> </span><span class="p">-</span><span class="p"> </span><span class="mi">1</span><span class="p">);</span><span class="p">
+            </span><span class="k">char</span><span class="p"> </span><span class="nx">lastB</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nx">length</span><span class="p">()</span><span class="p"> </span><span class="p">-</span><span class="p"> </span><span class="mi">1</span><span class="p">);</span><span class="p">
+            </span><span class="k">return</span><span class="p"> </span><span class="nx">Character</span><span class="p">.</span><span class="nx">compare</span><span class="p">(</span><span class="nx">lastA</span><span class="p">,</span><span class="p"> </span><span class="nx">lastB</span><span class="p">);</span><span class="p">
+        </span><span class="p">});</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">fruits</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java SortingByComparator.java</span>
+<span class="go">[kiwi, peach, apple]</span>
+<span class="go">[peach, apple, kiwi]</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../string-formatting" rel="next">String Formatting</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

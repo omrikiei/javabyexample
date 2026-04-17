@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Variables</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../values';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../constants';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="variables">
+      <h2><a href="../">Java by Example</a>: Variables</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>In Java, variables are explicitly typed. Since Java 10,
+<code>var</code> can be used for local variable type inference.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="nb">String</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="s">&quot;initial&quot;</span><span class="p">;</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>You can declare multiple variables at once.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="nx">c</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">2</span><span class="p">;</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">b</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="s">&quot; &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">c</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Java will infer the type of initialized variables
+using <code>var</code> (Java 10+).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">var</span><span class="p"> </span><span class="nx">d</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="kc">true</span><span class="p">;</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">d</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Variables declared without initialization get
+default values. For instance, the default for
+<code>int</code> is <code>0</code>.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">int</span><span class="p"> </span><span class="nx">e</span><span class="p">;</span><span class="p">
+</span><span class="nx">e</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p><code>final</code> declares a variable that cannot be
+reassigned after initialization.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">final</span><span class="p"> </span><span class="nb">String</span><span class="p"> </span><span class="nx">f</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="s">&quot;constant&quot;</span><span class="p">;</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">f</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Variables.java</span>
+<span class="go">initial</span>
+<span class="go">1 2</span>
+<span class="go">true</span>
+<span class="go">0</span>
+<span class="go">constant</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../constants" rel="next">Constants</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

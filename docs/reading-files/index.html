@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Reading Files</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../optional';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../writing-files';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="reading-files">
+      <h2><a href="../">Java by Example</a>: Reading Files</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Reading files is a common task. Java provides
+several ways to read files.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">io</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">nio</span><span class="p">.</span><span class="nx">file</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">ReadingFiles</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// Read an entire file into a string (Java 11+)</span><span class="p">
+        </span><span class="nb">String</span><span class="p"> </span><span class="nx">content</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">Files</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Reading all lines into a list.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Read all lines</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">lines</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">Files</span><span class="p">.</span><span class="nx">readAllLines</span><span class="p">(</span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat&quot;</span><span class="p">));</span><span class="p">
+        </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">line</span><span class="p"> </span><span class="p">:</span><span class="p"> </span><span class="nx">lines</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;line: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">line</span><span class="p">);</span><span class="p">
+        </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Reading with a BufferedReader for large files.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// Buffered reading</span><span class="p">
+        </span><span class="k">try</span><span class="p"> </span><span class="p">(</span><span class="k">var</span><span class="p"> </span><span class="nx">reader</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nb">Files</span><span class="p">.</span><span class="nx">newBufferedReader</span><span class="p">(</span><span class="nb">Path</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="s">&quot;/tmp/dat&quot;</span><span class="p">)))</span><span class="p"> </span><span class="p">{</span><span class="p">
+            </span><span class="nb">String</span><span class="p"> </span><span class="nx">line</span><span class="p">;</span><span class="p">
+            </span><span class="k">while</span><span class="p"> </span><span class="p">((</span><span class="nx">line</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">readLine</span><span class="p">())</span><span class="p"> </span><span class="p">!=</span><span class="p"> </span><span class="kc">null</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+                </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;buf: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">line</span><span class="p">);</span><span class="p">
+            </span><span class="p">}</span><span class="p">
+        </span><span class="p">}</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> echo -e &quot;hello\njava&quot; &gt; /tmp/dat</span>
+<span class="gp">$</span><span class="go"> java ReadingFiles.java</span>
+<span class="go">hello</span>
+<span class="go">java</span>
+<span class="go">line: hello</span>
+<span class="go">line: java</span>
+<span class="go">buf: hello</span>
+<span class="go">buf: java</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../writing-files" rel="next">Writing Files</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

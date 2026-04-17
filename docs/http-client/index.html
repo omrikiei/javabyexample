@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: HTTP Client</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../writing-files';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../http-server';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="http-client">
+      <h2><a href="../">Java by Example</a>: HTTP Client</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java 11+ includes a modern <code>HttpClient</code>
+in the standard library.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">URI</span><span class="p">;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">http</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">HttpResponse</span><span class="p">.</span><span class="nx">BodyHandlers</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">HttpClientExample</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="k">throws</span><span class="p"> </span><span class="nx">Exception</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">client</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">HttpClient</span><span class="p">.</span><span class="nx">newHttpClient</span><span class="p">();</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Simple GET request.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// GET request</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">request</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">HttpRequest</span><span class="p">.</span><span class="nx">newBuilder</span><span class="p">()</span><span class="p">
+            </span><span class="p">.</span><span class="nx">uri</span><span class="p">(</span><span class="nx">URI</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s">&quot;https://httpbin.org/get&quot;</span><span class="p">))</span><span class="p">
+            </span><span class="p">.</span><span class="nx">build</span><span class="p">();</span><span class="p">
+
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">response</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="p">
+            </span><span class="nx">BodyHandlers</span><span class="p">.</span><span class="nx">ofString</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;status: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;body length: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">().</span><span class="nx">length</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>POST request with a body.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="c1">// POST request</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">postReq</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">HttpRequest</span><span class="p">.</span><span class="nx">newBuilder</span><span class="p">()</span><span class="p">
+            </span><span class="p">.</span><span class="nx">uri</span><span class="p">(</span><span class="nx">URI</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s">&quot;https://httpbin.org/post&quot;</span><span class="p">))</span><span class="p">
+            </span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="p"> </span><span class="s">&quot;application/json&quot;</span><span class="p">)</span><span class="p">
+            </span><span class="p">.</span><span class="nx">POST</span><span class="p">(</span><span class="nx">HttpRequest</span><span class="p">.</span><span class="nx">BodyPublishers</span><span class="p">
+                </span><span class="p">.</span><span class="nx">ofString</span><span class="p">(</span><span class="s">&quot;{\&quot;key\&quot;: \&quot;value\&quot;}&quot;</span><span class="p">))</span><span class="p">
+            </span><span class="p">.</span><span class="nx">build</span><span class="p">();</span><span class="p">
+
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">postRes</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">postReq</span><span class="p">,</span><span class="p">
+            </span><span class="nx">BodyHandlers</span><span class="p">.</span><span class="nx">ofString</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;post status: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">postRes</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">());</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java HttpClientExample.java</span>
+<span class="go">status: 200</span>
+<span class="go">body length: 256</span>
+<span class="go">post status: 200</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../http-server" rel="next">HTTP Server</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

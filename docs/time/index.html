@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Time</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../json';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../random-numbers';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="time">
+      <h2><a href="../">Java by Example</a>: Time</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java 8+ provides the <code>java.time</code> package for
+comprehensive date/time support.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">time</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">time</span><span class="p">.</span><span class="nx">format</span><span class="p">.*;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">time</span><span class="p">.</span><span class="nx">temporal</span><span class="p">.*;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Time</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">now</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">Instant</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;now: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">now</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Creating specific times and dates.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">dt</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">LocalDateTime</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span><span class="p"> </span><span class="mi">6</span><span class="p">,</span><span class="p"> </span><span class="mi">15</span><span class="p">,</span><span class="p"> </span><span class="mi">14</span><span class="p">,</span><span class="p"> </span><span class="mi">30</span><span class="p">,</span><span class="p"> </span><span class="mi">0</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;date: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">dt</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;year: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">dt</span><span class="p">.</span><span class="nx">getYear</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;month: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">dt</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;day: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">dt</span><span class="p">.</span><span class="nx">getDayOfMonth</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Duration and period calculations.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">earlier</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">LocalDateTime</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span><span class="p"> </span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">0</span><span class="p">,</span><span class="p"> </span><span class="mi">0</span><span class="p">);</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">diff</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">Duration</span><span class="p">.</span><span class="nx">between</span><span class="p">(</span><span class="nx">earlier</span><span class="p">,</span><span class="p"> </span><span class="nx">dt</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;diff: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">diff</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;hours: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">diff</span><span class="p">.</span><span class="nx">toHours</span><span class="p">());</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Formatting and parsing.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">var</span><span class="p"> </span><span class="nx">fmt</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">DateTimeFormatter</span><span class="p">.</span><span class="nx">ofPattern</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd HH:mm&quot;</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;formatted: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">dt</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">fmt</span><span class="p">));</span><span class="p">
+
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">parsed</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">LocalDateTime</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="p">
+            </span><span class="s">&quot;2023-06-15 14:30&quot;</span><span class="p">,</span><span class="p"> </span><span class="nx">fmt</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;parsed: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">parsed</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Time.java</span>
+<span class="go">now: 2024-01-15T10:30:00Z</span>
+<span class="go">date: 2023-06-15T14:30</span>
+<span class="go">year: 2023</span>
+<span class="go">month: JUNE</span>
+<span class="go">day: 15</span>
+<span class="go">diff: PT3942H30M</span>
+<span class="go">hours: 3942</span>
+<span class="go">formatted: 2023-06-15 14:30</span>
+<span class="go">parsed: 2023-06-15T14:30</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../random-numbers" rel="next">Random Numbers</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Lambdas</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../varargs';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../recursion';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="lambdas">
+      <h2><a href="../">Java by Example</a>: Lambdas</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java supports <em>lambda expressions</em> (since Java 8),
+which are anonymous functions. They are commonly
+used with functional interfaces.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">function</span><span class="p">.</span><span class="nx">IntBinaryOperator</span><span class="p">;</span><span class="p">
+</span><span class="k">import</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nx">function</span><span class="p">.</span><span class="nx">IntUnaryOperator</span><span class="p">;</span><span class="p">
+
+</span><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Lambdas</span><span class="p"> </span><span class="p">{</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>This method takes a function (functional interface)
+as a parameter.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">static</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">apply</span><span class="p">(</span><span class="nx">IntBinaryOperator</span><span class="p"> </span><span class="nx">op</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="k">int</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">op</span><span class="p">.</span><span class="nx">applyAsInt</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="nx">b</span><span class="p">);</span><span class="p">
+    </span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Lambdas can capture variables from their
+enclosing scope (effectively final variables).</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="c1">// A simple lambda</span><span class="p">
+        </span><span class="nx">IntBinaryOperator</span><span class="p"> </span><span class="nx">add</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">b</span><span class="p">;</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">apply</span><span class="p">(</span><span class="nx">add</span><span class="p">,</span><span class="p"> </span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>You can also use lambdas inline.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">apply</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="p"> </span><span class="nx">b</span><span class="p">)</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">b</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">,</span><span class="p"> </span><span class="mi">4</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Lambdas can be used to create closures.
+This function returns a lambda that adds
+<code>x</code> to its argument.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="p">        </span><span class="k">int</span><span class="p"> </span><span class="nx">x</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">5</span><span class="p">;</span><span class="p">
+        </span><span class="nx">IntUnaryOperator</span><span class="p"> </span><span class="nx">addX</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">-&gt;</span><span class="p"> </span><span class="nx">n</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">x</span><span class="p">;</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="nx">addX</span><span class="p">.</span><span class="nx">applyAsInt</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Lambdas.java</span>
+<span class="go">3</span>
+<span class="go">12</span>
+<span class="go">15</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../recursion" rel="next">Recursion</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

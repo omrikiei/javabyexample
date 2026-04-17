@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Classes</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../strings';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../records';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="classes">
+      <h2><a href="../">Java by Example</a>: Classes</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Java is an object-oriented language.
+<em>Classes</em> are the fundamental building blocks
+for structuring code.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// A simple class with fields and methods.</span><span class="p">
+</span><span class="k">class</span><span class="p"> </span><span class="nx">Rect</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">width</span><span class="p">;</span><span class="p">
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">height</span><span class="p">;</span><span class="p">
+
+    </span><span class="nx">Rect</span><span class="p">(</span><span class="k">double</span><span class="p"> </span><span class="nx">width</span><span class="p">,</span><span class="p"> </span><span class="k">double</span><span class="p"> </span><span class="nx">height</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">width</span><span class="p">;</span><span class="p">
+        </span><span class="k">this</span><span class="p">.</span><span class="nx">height</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">height</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">area</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="nx">width</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">height</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+
+    </span><span class="k">double</span><span class="p"> </span><span class="nx">perimeter</span><span class="p">()</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">return</span><span class="p"> </span><span class="mi">2</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">width</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="mi">2</span><span class="p"> </span><span class="p">*</span><span class="p"> </span><span class="nx">height</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Use <code>new</code> to create instances of a class.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">public</span><span class="p"> </span><span class="k">class</span><span class="p"> </span><span class="nx">Classes</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">public</span><span class="p"> </span><span class="k">static</span><span class="p"> </span><span class="k">void</span><span class="p"> </span><span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span><span class="p"> </span><span class="nx">args</span><span class="p">)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="k">var</span><span class="p"> </span><span class="nx">r</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="nx">Rect</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="p"> </span><span class="mi">4</span><span class="p">);</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;area: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">area</span><span class="p">());</span><span class="p">
+        </span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;perim: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">perimeter</span><span class="p">());</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> javac Classes.java</span>
+<span class="gp">$</span><span class="go"> java Classes</span>
+<span class="go">area: 12.0</span>
+<span class="go">perim: 14.0</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../records" rel="next">Records</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>

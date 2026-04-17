@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Java by Example: Arrays</title>
+    <link rel=stylesheet href="../site.css">
+  </head>
+  <script>
+      window.onkeydown = (e) => {
+          if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+              return;
+          }
+          if (e.key == "ArrowLeft") {
+              window.location.href = '../switch';
+          }
+          if (e.key == "ArrowRight") {
+              window.location.href = '../lists';
+          }
+      }
+  </script>
+  <body>
+    <div class="example" id="arrays">
+      <h2><a href="../">Java by Example</a>: Arrays</h2>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>In Java, an <em>array</em> is a fixed-size sequence
+of elements of a specific type.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="c1">// Create an array that holds exactly 5 ints.</span><span class="p">
+</span><span class="c1">// By default, elements are zero-valued.</span><span class="p">
+</span><span class="k">int</span><span class="p">[]</span><span class="p"> </span><span class="nx">a</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="k">int</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;emp: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Arrays</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">a</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>We can set a value at an index and get a value
+with the standard <code>array[index]</code> syntax.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="nx">a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">100</span><span class="p">;</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;set: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Arrays</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">a</span><span class="p">));</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;get: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">a</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>The built-in <code>length</code> field returns the length of an array.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;len: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Use this syntax to declare and initialize an array
+in one line.</p>
+          </td>
+          <td class="code leading">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">int</span><span class="p">[]</span><span class="p"> </span><span class="nx">b</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="p"> </span><span class="mi">2</span><span class="p">,</span><span class="p"> </span><span class="mi">3</span><span class="p">,</span><span class="p"> </span><span class="mi">4</span><span class="p">,</span><span class="p"> </span><span class="mi">5</span><span class="p">};</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;dcl: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Arrays</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">b</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+        <tr>
+          <td class="docs">
+            <p>Multi-dimensional arrays are also supported.</p>
+          </td>
+          <td class="code ">
+            <img title="Copy code" src="../clipboard.png" class="copy" onclick="copyCode(this)" />
+          <pre class="chroma"><code><span class="k">int</span><span class="p">[][]</span><span class="p"> </span><span class="nx">twoD</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="k">new</span><span class="p"> </span><span class="k">int</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">];</span><span class="p">
+</span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">2</span><span class="p">;</span><span class="p"> </span><span class="nx">i</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+    </span><span class="k">for</span><span class="p"> </span><span class="p">(</span><span class="k">int</span><span class="p"> </span><span class="nx">j</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="mi">0</span><span class="p">;</span><span class="p"> </span><span class="nx">j</span><span class="p"> </span><span class="p">&lt;</span><span class="p"> </span><span class="mi">3</span><span class="p">;</span><span class="p"> </span><span class="nx">j</span><span class="p">++)</span><span class="p"> </span><span class="p">{</span><span class="p">
+        </span><span class="nx">twoD</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span><span class="p"> </span><span class="p">=</span><span class="p"> </span><span class="nx">i</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">j</span><span class="p">;</span><span class="p">
+    </span><span class="p">}</span><span class="p">
+</span><span class="p">}</span><span class="p">
+</span><span class="nb">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s">&quot;2d: &quot;</span><span class="p"> </span><span class="p">+</span><span class="p"> </span><span class="nx">java</span><span class="p">.</span><span class="nx">util</span><span class="p">.</span><span class="nb">Arrays</span><span class="p">.</span><span class="nx">deepToString</span><span class="p">(</span><span class="nx">twoD</span><span class="p">));</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <table>
+        <tr>
+          <td class="docs">
+            <p>Note that arrays are printed in <code>[a, b, c]</code> form when
+using <code>Arrays.toString</code>.</p>
+          </td>
+          <td class="code ">
+          <pre class="chroma"><code><span class="gp">$</span><span class="go"> java Arrays.java</span>
+<span class="go">emp: [0, 0, 0, 0, 0]</span>
+<span class="go">set: [0, 0, 0, 0, 100]</span>
+<span class="go">get: 100</span>
+<span class="go">len: 5</span>
+<span class="go">dcl: [1, 2, 3, 4, 5]</span>
+<span class="go">2d: [[0, 1, 2], [1, 2, 3]]</span></code></pre>
+          </td>
+        </tr>
+        
+      </table>
+      
+      <p class="next">
+        Next example: <a href="../lists" rel="next">Lists</a>.
+      </p>
+      
+      <p class="footer">
+        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        inspired by <a href="https://gobyexample.com/">Go by Example</a>
+      </p>
+      
+    </div>
+    <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector("pre");
+      navigator.clipboard.writeText(pre.textContent);
+    }
+    </script>
+  </body>
+</html>
