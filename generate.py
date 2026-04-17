@@ -884,7 +884,7 @@ def gen_example_page(idx, slug, title, sections, output_sections):
 '''
     
     h += f'''      <p class="footer">
-        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        <a href="https://github.com/omrikiei/javabyexample">source</a> |
         inspired by <a href="https://gobyexample.com/">Go by Example</a>
       </p>
       
@@ -944,7 +944,7 @@ def gen_index():
     h += '''      </ul>
 
       <p class="footer">
-        <a href="https://github.com/omrieival/javabyexample">source</a> |
+        <a href="https://github.com/omrikiei/javabyexample">source</a> |
         inspired by <a href="https://gobyexample.com/">Go by Example</a>
       </p>
     </div>
