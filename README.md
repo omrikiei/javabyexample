@@ -2,7 +2,7 @@
 
 A hands-on introduction to Java using annotated example programs, inspired by [Go by Example](https://gobyexample.com/).
 
-**Live site: [javabyexample.com](https://javabyexample.com)** (or via GitHub Pages)
+**Live site: [omrikiei.github.io/javabyexample](https://omrikiei.github.io/javabyexample)**
 
 ## Examples
 
